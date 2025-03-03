@@ -14,3 +14,6 @@ amd64向けしかないので `QEMU` でエミュレートして動かしてま�
 - [GB ゲーム開発覚え書き: 基礎から | きるこの日記帳](https://www.dkrk-blog.net/game/gb_dev_basic)
 - [今さらゲームボーイ開発](https://gb-dev.blogspot.com/2013/06/blog-post.html?m=0)
 - [Game Boy Color用背景を出力する](https://qiita.com/owannu/items/6e273e998acac738b659)
+
+## ライセンス
+自己責任でご自由にお使いください。 （Feel free to use it at your own risk.）
