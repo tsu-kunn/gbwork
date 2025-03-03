@@ -16,4 +16,9 @@ amd64向けしかないので `QEMU` でエミュレートして動かしてま�
 - [Game Boy Color用背景を出力する](https://qiita.com/owannu/items/6e273e998acac738b659)
 
 ## ライセンス
-自己責任でご自由にお使いください。 （Feel free to use it at your own risk.）
+自己責任でご自由にお使いください。 \
+（Feel free to use it at your own risk.）
+
+### 画像
+スプライトや一部BG画像は [DOT ILLUST](https://dot-illust.net/) を使用しています。 \
+（Some images use DOT ILLUST.）
