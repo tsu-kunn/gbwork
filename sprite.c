@@ -2,8 +2,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "map_tile.c"
-#include "map_data.c"
+#include "map_tile.h"
+#include "map_data.h"
 #include "chara.h"
 
 #define SPRITE_START_X  8

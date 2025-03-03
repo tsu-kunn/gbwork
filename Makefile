@@ -10,7 +10,7 @@ compile.bat: Makefile
 
 # Compile and link single file in one pass
 %.gb:	%.c
-	$(CC) -o $@ $< chara.c
+	$(CC) -o $@ $< map_tile.c map_data.c chara.c
 
 clean:
 	rm -f *.o *.lst *.map *.gb *~ *.rel *.cdb *.ihx *.lnk *.sym *.asm *.noi
