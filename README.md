@@ -20,5 +20,5 @@ amd64向けしかないので `QEMU` でエミュレートして動かしてま�
 （Feel free to use it at your own risk.）
 
 ### 画像
-スプライトや一部BG画像は [DOT ILLUST](https://dot-illust.net/) を使用しています。 \
-（Some images use DOT ILLUST.）
+スプライトや一部BG画像は [DOT ILLUST](https://dot-illust.net/) と [DOTOWN](https://dotown.maeda-design-room.net/) を使用しています。 \
+（Some images use DOT ILLUST and DOTOWN.）
