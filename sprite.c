@@ -41,11 +41,14 @@ void main(void)
     HIDE_SPRITES;
 
     SPRITES_8x16;
-    set_sprite_data(0, 12, TileData);
+    set_sprite_data(0, 24, TileData);
 
-    SpriteDraw8x16(0, 0, SPRITE_START_X     , SPRITE_START_Y);
-    SpriteDraw8x16(2, 4, SPRITE_START_X + 16, SPRITE_START_Y);
-    SpriteDraw8x16(4, 8, SPRITE_START_X + 32, SPRITE_START_Y);
+    SpriteDraw8x16( 0,  0, SPRITE_START_X     , SPRITE_START_Y);
+    SpriteDraw8x16( 2,  4, SPRITE_START_X + 16, SPRITE_START_Y);
+    SpriteDraw8x16( 4,  8, SPRITE_START_X + 32, SPRITE_START_Y);
+    SpriteDraw8x16( 6, 12, SPRITE_START_X     , SPRITE_START_Y + 16);
+    SpriteDraw8x16( 8, 16, SPRITE_START_X + 16, SPRITE_START_Y + 16);
+    SpriteDraw8x16(10, 20, SPRITE_START_X + 32, SPRITE_START_Y + 16);
 
     SHOW_BKG;
     SHOW_SPRITES;
