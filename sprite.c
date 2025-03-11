@@ -35,7 +35,7 @@ void main(void)
     DISPLAY_OFF;
     HIDE_BKG;
 
-    set_bkg_data(0, 4, MapTile);
+    set_bkg_data(0, 52, MapTile);
     set_bkg_tiles(0, 0, MapDataWidth, MapDataHeight, MapData);
 
     HIDE_SPRITES;
