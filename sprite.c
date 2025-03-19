@@ -41,7 +41,7 @@ void main(void)
     HIDE_SPRITES;
 
     SPRITES_8x16;
-    set_sprite_data(0, 24, TileData);
+    set_sprite_data(0, 40, TileData);
 
     SpriteDraw8x16( 0,  0, SPRITE_START_X     , SPRITE_START_Y);
     SpriteDraw8x16( 2,  4, SPRITE_START_X + 16, SPRITE_START_Y);
@@ -49,9 +49,23 @@ void main(void)
     SpriteDraw8x16( 6, 12, SPRITE_START_X     , SPRITE_START_Y + 16);
     SpriteDraw8x16( 8, 16, SPRITE_START_X + 16, SPRITE_START_Y + 16);
     SpriteDraw8x16(10, 20, SPRITE_START_X + 32, SPRITE_START_Y + 16);
+    SpriteDraw8x16(12, 24, SPRITE_START_X     , SPRITE_START_Y + 32);
+    SpriteDraw8x16(14, 28, SPRITE_START_X + 16, SPRITE_START_Y + 32);
+    SpriteDraw8x16(16, 32, SPRITE_START_X + 32, SPRITE_START_Y + 32);
+    SpriteDraw8x16(18, 36, SPRITE_START_X + 48, SPRITE_START_Y + 32);
 
     SHOW_BKG;
     SHOW_SPRITES;
     DISPLAY_ON;
+
+    uint8_t bgX = 0;
+    uint8_t bgY = 0;
+
+    while (1) {
+        move_bkg(bgX, bgY);
+        bgX++;
+
+        delay(10);
+    }
 }
 
