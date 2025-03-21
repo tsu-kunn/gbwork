@@ -12,12 +12,7 @@ LCC = $(GBDK_HOME)bin/lcc
 # You can set flags for LCC here
 # For example, you can uncomment the line below to turn on debug output
 # LCCFLAGS += -debug
-
-# Add directory where image gets converted into (obj/)
-# So they can be included with "#include <res/somefile.h>"
 LCCFLAGS += -I$(RESDIR) -I$(INCDIR)
-
-# Make the ROM CGB compatible (but not exclusive)
 LCCFLAGS += -Wa-l -Wl-j -Wm-yS
 
 # You can set the name of the .gb ROM file here
