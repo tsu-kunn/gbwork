@@ -60,10 +60,22 @@ void main(void)
 
     uint8_t bgX = 0;
     uint8_t bgY = 0;
+    uint8_t keyInput = 0;
 
     while (1) {
+        waitpad(0xff);
+        keyInput = joypad();
+
+        if (keyInput & J_RIGHT) bgX++;
+        if (keyInput & J_LEFT) bgX--;
+        if (keyInput & J_DOWN) bgY++;
+        if (keyInput & J_UP) bgY--;
+
+        if (keyInput & J_START) {
+            bgX = bgY = 0;
+        }
+
         move_bkg(bgX, bgY);
-        bgX++;
 
         delay(10);
     }
