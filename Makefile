@@ -13,7 +13,7 @@ LCC = $(GBDK_HOME)bin/lcc
 # For example, you can uncomment the line below to turn on debug output
 # LCCFLAGS += -debug
 LCCFLAGS += -I$(RESDIR) -I$(INCDIR)
-LCCFLAGS += -Wa-l -Wl-j -Wm-yS
+LCCFLAGS += -Wa-l -Wl-m -Wl-j 
 
 # You can set the name of the .gb ROM file here
 PROJECTNAME = sprite
@@ -58,8 +58,6 @@ $(BINS):	$(OBJS)
 
 clean:
 	rm -f  $(OBJDIR)/*.*
-	rm -f  $(RESOBJSRC)/*.*
-
 
 # create necessary directories after Makefile is parsed but before build
 # info prevents the command from being pasted into the makefile
