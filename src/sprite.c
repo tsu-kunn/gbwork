@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "input.h"
+
 #include "map_tile.h"
 #include "map_data.h"
 #include "chara.h"
@@ -63,8 +65,14 @@ void main(void)
     uint8_t keyInput = 0;
 
     while (1) {
-        waitpad(0xff);
-        keyInput = joypad();
+        UpdateInput();
+        keyInput = GetDirect();
+
+        if (keyInput & J_A) {
+            keyInput = GetSequence(); 
+        } else if (keyInput & J_B) {
+            keyInput = GetTrigger();
+        }
 
         if (keyInput & J_RIGHT) bgX++;
         if (keyInput & J_LEFT) bgX--;
