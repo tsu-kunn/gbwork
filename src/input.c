@@ -12,5 +12,5 @@ void UpdateInput(void)
     inputOld = inputDir;
     inputDir = joypad();
     inputSeq = inputDir & (inputSeq ^ inputDir);
-    inputTri = inputDir ^ inputOld;
+    inputTri = inputDir & (inputDir ^ inputOld);
 }

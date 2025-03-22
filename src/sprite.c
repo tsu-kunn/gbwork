@@ -1,4 +1,5 @@
 #include <gb/gb.h>
+#include <gb/drawing.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -11,6 +12,13 @@
 #define SPRITE_START_X  8
 #define SPRITE_START_Y  16
 
+static uint8_t bgX = 0;
+static uint8_t bgY = 0;
+static uint8_t spX = SPRITE_START_X;
+static uint8_t spY = SPRITE_START_Y;
+static int8_t isSprite = 1;
+
+// 8x8のスプライト描画
 void SpriteDraw8x8(int8_t idx, int8_t spno, const uint8_t x, const uint8_t y)
 {
     for (int8_t i = 0; i < 4; i++) {
@@ -21,6 +29,7 @@ void SpriteDraw8x8(int8_t idx, int8_t spno, const uint8_t x, const uint8_t y)
     }
 }
 
+// 8x16のスプライト描画
 void SpriteDraw8x16(int8_t idx, int8_t spno, const uint8_t x, const uint8_t y)
 {
     set_sprite_tile(idx, spno);
@@ -30,6 +39,47 @@ void SpriteDraw8x16(int8_t idx, int8_t spno, const uint8_t x, const uint8_t y)
 
     set_sprite_tile(idx, spno);
     move_sprite(idx, x + 8, y);
+}
+
+// V Blank割込み処理
+void VBlankInter(void)
+{
+    UpdateInput();
+    uint8_t keyInput = GetDirect();
+
+    if (keyInput & J_A) {
+        keyInput = GetSequence(); 
+    } else if (keyInput & J_B) {
+        keyInput = GetTrigger();
+    }
+
+    if (isSprite) {
+        if (keyInput & J_RIGHT) spX++;
+        if (keyInput & J_LEFT) spX--;
+        if (keyInput & J_DOWN) spY++;
+        if (keyInput & J_UP) spY--;
+    } else {
+        if (keyInput & J_RIGHT) bgX++;
+        if (keyInput & J_LEFT) bgX--;
+        if (keyInput & J_DOWN) bgY++;
+        if (keyInput & J_UP) bgY--;
+    }
+
+    if ((GetDirect() & J_START) && (GetDirect() & J_A) && (GetDirect() & J_B)) {
+        bgX = bgY = 0;
+        spX = SPRITE_START_X;
+        spY = SPRITE_START_Y;
+    }
+
+    if (GetTrigger() & J_SELECT) {
+        isSprite ^= 1;
+    }
+
+    //gotogxy(2, 5);
+    //gprintf("keyInput: %x", keyInput);
+
+    move_bkg(bgX, bgY);
+    SpriteDraw8x16( 0,  0, spX, spY);
 }
 
 void main(void)
@@ -60,31 +110,13 @@ void main(void)
     SHOW_SPRITES;
     DISPLAY_ON;
 
-    uint8_t bgX = 0;
-    uint8_t bgY = 0;
-    uint8_t keyInput = 0;
+    // V Blank対応
+    disable_interrupts();
+    add_VBL(VBlankInter);
+    enable_interrupts();
+    set_interrupts(VBL_IFLAG);
 
     while (1) {
-        UpdateInput();
-        keyInput = GetDirect();
-
-        if (keyInput & J_A) {
-            keyInput = GetSequence(); 
-        } else if (keyInput & J_B) {
-            keyInput = GetTrigger();
-        }
-
-        if (keyInput & J_RIGHT) bgX++;
-        if (keyInput & J_LEFT) bgX--;
-        if (keyInput & J_DOWN) bgY++;
-        if (keyInput & J_UP) bgY--;
-
-        if (keyInput & J_START) {
-            bgX = bgY = 0;
-        }
-
-        move_bkg(bgX, bgY);
-
         delay(10);
     }
 }
