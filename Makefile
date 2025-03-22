@@ -19,7 +19,7 @@ LCCFLAGS += -Wa-l -Wl-m -Wl-j
 PROJECTNAME = sprite
 
 SRCDIR      = src
-INCDIR      = inc
+INCDIR      = src 
 OBJDIR      = obj
 RESDIR      = res
 MKDIRS      = $(OBJDIR) # See bottom of Makefile for directory auto-creation
