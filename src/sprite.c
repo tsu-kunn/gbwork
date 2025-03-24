@@ -80,7 +80,7 @@ void VBlankInter(void)
     // BGタイル表示テスト
     if (!isSprite) {
         set_bkg_tile_xy(2, 4, bgNo);
-        if (GetSequence() & J_A) {
+        if (GetTrigger() & J_A) {
             if (bgNo++ > 0x7f) bgNo = 0;
         }
     }
