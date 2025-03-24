@@ -1,5 +1,5 @@
 #include <gb/gb.h>
-#include <gb/drawing.h>
+#include <gbdk/console.h>
 #include <stdint.h>
 #include <stdio.h>
 
@@ -17,6 +17,8 @@ static uint8_t bgY = 0;
 static uint8_t spX = SPRITE_START_X;
 static uint8_t spY = SPRITE_START_Y;
 static int8_t isSprite = 1;
+
+static uint8_t bgNo = 0;
 
 // 8x8のスプライト描画
 void SpriteDraw8x8(int8_t idx, int8_t spno, const uint8_t x, const uint8_t y)
@@ -75,8 +77,13 @@ void VBlankInter(void)
         isSprite ^= 1;
     }
 
-    //gotogxy(2, 5);
-    //gprintf("keyInput: %x", keyInput);
+    // BGタイル表示テスト
+    if (!isSprite) {
+        set_bkg_tile_xy(2, 4, bgNo);
+        if (GetSequence() & J_A) {
+            if (bgNo++ > 0x7f) bgNo = 0;
+        }
+    }
 
     move_bkg(bgX, bgY);
     SpriteDraw8x16( 0,  0, spX, spY);
@@ -87,7 +94,7 @@ void main(void)
     DISPLAY_OFF;
     HIDE_BKG;
 
-    set_bkg_data(0, 56, MapTile);
+    set_bkg_data(0, 128, MapTile);
     set_bkg_tiles(0, 0, MapDataWidth, MapDataHeight, MapData);
 
     HIDE_SPRITES;
