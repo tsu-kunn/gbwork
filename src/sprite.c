@@ -2,6 +2,7 @@
 #include <gbdk/console.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "input.h"
 
@@ -11,6 +12,8 @@
 
 #define SPRITE_START_X  8
 #define SPRITE_START_Y  16
+
+#define ASCIItoBGIDX(x) ((x) + 33)
 
 static uint8_t bgX = 0;
 static uint8_t bgY = 0;
@@ -41,6 +44,33 @@ void SpriteDraw8x16(int8_t idx, int8_t spno, const uint8_t x, const uint8_t y)
 
     set_sprite_tile(idx, spno);
     move_sprite(idx, x + 8, y);
+}
+
+// フォント描画
+void Printft(uint8_t x, uint8_t y, const char *str)
+{
+    uint8_t len = strlen(str);
+    uint8_t tx = x;
+
+    for (int i = 0; i < len; i++) {
+        char s = str[i];
+
+        if (s == '\n') {
+            x = tx;
+            y++;
+            continue;
+        } else if (s == 0x20) {
+            s = 0x29;
+        } else if (0x61 <= s && s <= 0x7a) {
+            s -= 0x20;
+        } else if (s == 0x5f) {
+            s--;
+        } else if (s <= 0x29 || str[i] >= 0x5e) {
+            continue;
+        }
+
+        set_bkg_tile_xy(x++, y, ASCIItoBGIDX(s));
+    }
 }
 
 // V Blank割込み処理
@@ -77,13 +107,12 @@ void VBlankInter(void)
         isSprite ^= 1;
     }
 
-    // BGタイル表示テスト
-    if (!isSprite) {
-        set_bkg_tile_xy(2, 4, bgNo);
-        if (GetTrigger() & J_A) {
-            if (bgNo++ > 0x7f) bgNo = 0;
-        }
-    }
+    // 文字列表示テスト
+    char str[16] = {0};
+    sprintf(str, "BG X:%d, Y:%d", bgX, bgY);
+    set_bkg_tiles(2, 3, 16, 2, MapData);
+    Printft(2, 4, str);
+    //Printft(2, 4, "TEST:[10_20]\n(abcdexyz)");
 
     move_bkg(bgX, bgY);
     SpriteDraw8x16( 0,  0, spX, spY);
